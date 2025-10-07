@@ -1,0 +1,76 @@
+class QuizGame:
+    """
+    A simple command-line quiz game implemented using OOP principles.
+    """
+
+    # Define the quiz data globally for the class
+    quiz_data = [
+        ["What is the capital of Japan? ", "Tokyo"],
+        ["What is 5 multiplied by 3? ", "15"],
+        ["What planet is closest to the Sun? ", "Mercury"],
+        ["Which animal says 'Moo'? ", "Cow"]
+    ]
+
+    # Constructor: Initializes the object's attributes (score and total questions)
+    def __init__(self):
+        self.score = 0
+        self.total_questions = len(self.quiz_data)
+        self.menu() # Automatically start the quiz when the object is created
+
+    # Main menu function (in this case, it's just the 'start quiz' function)
+    def menu(self):
+        print("--- Welcome to the OOP Quiz Game! 🧠 ---")
+        user_input = input("Press 1 to Start Quiz or anything else to Exit: ").strip()
+
+        if user_input == '1':
+            self.start_quiz()
+        else:
+            print("Goodbye!")
+            exit()
+
+    # Function containing the core quiz logic
+    def start_quiz(self):
+        print("\n--- Starting the Quiz ---")
+        print("Please type your answer and press Enter.")
+
+        # Loop through each question pair in the class data
+        for question_pair in self.quiz_data:
+            question = question_pair[0]
+            correct_answer = question_pair[1]
+
+            # Get user input
+            user_answer = input(question).strip()
+
+            # Check the answer (case-insensitive)
+            if user_answer.lower() == correct_answer.lower():
+                print("✅ Correct!")
+                self.score += 1 # Update the score attribute using self
+            else:
+                print(f"❌ Wrong! The correct answer was: {correct_answer}")
+
+        # Call the results method to show the score
+        self.show_results()
+
+    # Function to display the final score
+    def show_results(self):
+        print("\n--- Quiz Complete ---")
+        print(f"Your final score is: {self.score} out of {self.total_questions}")
+
+        # Give the user an option to play again
+        self.play_again()
+
+    # Function to ask the user if they want to play again
+    def play_again(self):
+        play = input("Do you want to play again? (yes/no): ").strip().lower()
+        if play == 'yes':
+            # Reset the score and restart the game
+            self.score = 0
+            self.menu()
+        else:
+            print("Thanks for playing! Goodbye.")
+            exit()
+
+
+# Create an object (instance) of the QuizGame class to start the game
+if __name__ == "__main__":
+    game_instance = QuizGame()
